@@ -10,7 +10,6 @@ describe RubyEnum do
     enum :west
   end
 
-
   describe 'Coordinate.north' do
     subject { Coordinate.north }
 
@@ -178,6 +177,50 @@ describe RubyEnum do
         end
       end.to raise_error ArgumentError
       expect(Planet.all.size).to eq planets_count
+    end
+  end
+
+  describe '#find_by_value!' do
+
+    context 'when an enumeration value with the specified associated value exists' do
+      before do
+        @north = Coordinate.north
+      end
+
+      it 'returns the value' do
+        result = Coordinate.find_by_value! @north.value
+
+        expect(result).to eq @north
+      end
+    end
+
+    context 'when no enumeration value with the specified associated value exists' do
+
+      it 'raises an error' do
+        expect { Coordinate.find_by_value! 'invalid' }.to raise_error ArgumentError
+      end
+    end
+  end
+
+  describe '#find_by_value' do
+
+    context 'when an enumeration value with the specified associated value exists' do
+      before do
+        @north = Coordinate.north
+      end
+
+      it 'returns the value' do
+        result = Coordinate.find_by_value @north.value
+
+        expect(result).to eq @north
+      end
+    end
+
+    context 'when no enumeration value with the specified associated value exists' do
+
+      it 'returns nil' do
+        expect(Coordinate.find_by_value 'invalid').to be_nil
+      end
     end
   end
 end

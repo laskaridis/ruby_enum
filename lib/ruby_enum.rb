@@ -81,6 +81,19 @@ module RubyEnum
       _enumeration_values.map { |_, instance| instance }
     end
 
+    def find_by_value!(value)
+      result = find_by_value(value) 
+      unless result
+        raise ArgumentError, "No enumeration value with associated value #{value} found"
+      end
+
+      result
+    end
+
+    def find_by_value(value)
+      all.find { |instance| instance.value == value }
+    end
+
     private
 
     def _enumeration_values
