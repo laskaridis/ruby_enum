@@ -1,3 +1,6 @@
+[![Gem
+Version](https://badge.fury.io/rb/ruby_enum.svg)](https://badge.fury.io/rb/ruby_enum)
+
 # RubyEnum
 
 A simple enumeration type for ruby.
