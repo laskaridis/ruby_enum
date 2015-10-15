@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Simple enumeration type for ruby}
   spec.description   = %q{Implementation of a simple enumeration type for ruby}
-  spec.homepage      = "http://www.laskaridis.cm"
+  spec.homepage      = "https://github.com/laskaridis/ruby_enum"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
