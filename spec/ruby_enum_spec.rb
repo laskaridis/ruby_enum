@@ -34,10 +34,10 @@ describe RubyEnum do
   end
 
   it 'should assign default values to each enumeration instance' do
-    expect(Coordinate.north.raw_value).to eq 'north'
-    expect(Coordinate.south.raw_value).to eq 'south'
-    expect(Coordinate.east.raw_value).to eq 'east'
-    expect(Coordinate.west.raw_value).to eq 'west'
+    expect(Coordinate.north.value).to eq 'north'
+    expect(Coordinate.south.value).to eq 'south'
+    expect(Coordinate.east.value).to eq 'east'
+    expect(Coordinate.west.value).to eq 'west'
   end
 
   it 'should provide access to specified enumeration instance through symbols' do
@@ -82,10 +82,10 @@ describe RubyEnum do
     end
 
     it 'should assign specified values to each instance' do
-      expect(Planet.mercury.raw_value).to eq 1
-      expect(Planet.venus.raw_value).to eq 2
-      expect(Planet.earth.raw_value).to eq 3
-      expect(Planet.mars.raw_value).to eq 4
+      expect(Planet.mercury.value).to eq 1
+      expect(Planet.venus.value).to eq 2
+      expect(Planet.earth.value).to eq 3
+      expect(Planet.mars.value).to eq 4
     end
   end
 

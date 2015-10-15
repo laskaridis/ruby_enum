@@ -12,7 +12,7 @@ module RubyEnum
   module InstanceMethods
 
     # the value associated with the enumeration instance
-    def raw_value
+    def value
       @_value
     end
 
