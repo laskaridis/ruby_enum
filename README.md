@@ -1,6 +1,6 @@
 # RubyEnum
 
-A simple enumeration type for ruby classes.
+A simple enumeration type for ruby.
 
 ## Installation
 
@@ -20,7 +20,8 @@ Or install it yourself as:
 
 ## Usage
 
-To create an enumeration type simply include the `RubyEnum` module and define the enumeration values as follows:
+To create an enumeration type simply include the `RubyEnum` module in your
+enumeration class and provide the enumeration's values as follows:
 ```ruby
 class Coordinates
   include RubyEnum
@@ -31,7 +32,33 @@ class Coordinates
   enum :east
 ```
 
-Including `RubyEnum` in any class will make it a singleton. This means that you can't use `new`, `allocate`, `clone` or `dup` on that class. You can access enumeration values however as follows:
+Including `RubyEnum` in any class will make it a singleton. This means that you
+can't create new instances of your class using `new`, `allocate`, `clone` or
+`dup`. You can access an enumeration's value instances in three different ways:
+
+1. Using a class method that matches the provided name of the enumeration
+value:
+```ruby
+north = Coordinates.north
+```
+
+2. Using a constant:
+```ruby
+north = Coordinates::NORTH
+```
+
+3. Treating your enumeration class as a dictionary:
+```ruby
+north = Coordinates[:north]
+```
+
+All three approaches are equivalent and subject to personal style.
+
+To retrieve all values of an enumeration, simply invoke `all` method on your
+enumeration class:
+```ruby
+coordinates = Coordinates.all
+```
 
 ## Development
 
