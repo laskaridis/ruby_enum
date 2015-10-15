@@ -1,8 +1,6 @@
 # RubyEnum
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ruby_enum`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A simple enumeration type for ruby classes.
 
 ## Installation
 
@@ -22,7 +20,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To create an enumeration type simply include the `RubyEnum` module and define the enumeration values as follows:
+```ruby
+class Coordinates
+  include RubyEnum
+  
+  enum :north
+  enum :south
+  enum :west
+  enum :east
+```
+
+Including `RubyEnum` in any class will make it a singleton. This means that you can't use `new`, `allocate`, `clone` or `dup` on that class. You can access enumeration values however as follows:
 
 ## Development
 
