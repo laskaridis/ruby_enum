@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ClassMethods	lib/ruby_enum.rb	/^  module ClassMethods$/;"	m	class:RubyEnum
+Coordinates	spec/ruby_enum_spec.rb	/^      class Coordinates$/;"	c
+Member	lib/ruby_enum/member.rb	/^  class Member$/;"	c	class:RubyEnum
+RubyEnum	lib/ruby_enum.rb	/^module RubyEnum$/;"	m
+RubyEnum	lib/ruby_enum/member.rb	/^module RubyEnum$/;"	m
+RubyEnum	lib/ruby_enum/version.rb	/^module RubyEnum$/;"	m
+[]	lib/ruby_enum.rb	/^    def [](member_name)$/;"	f	class:RubyEnum.ClassMethods
+enum	lib/ruby_enum.rb	/^    def enum(name, value = nil)$/;"	f	class:RubyEnum.ClassMethods
+enumeration_members	lib/ruby_enum.rb	/^    def enumeration_members$/;"	f	class:RubyEnum.ClassMethods
+enumeration_value_for	lib/ruby_enum.rb	/^    def enumeration_value_for(member_name)$/;"	f	class:RubyEnum.ClassMethods
+find_enumeration_member_by	lib/ruby_enum.rb	/^    def find_enumeration_member_by(name)$/;"	f	class:RubyEnum.ClassMethods
+included	lib/ruby_enum.rb	/^  def self.included(base)$/;"	F	class:RubyEnum
+initialize	lib/ruby_enum/member.rb	/^    def initialize(name, value = nil)$/;"	f	class:RubyEnum.Member
+method_missing	lib/ruby_enum.rb	/^  def method_missing(name, *args, &blk)$/;"	f	class:RubyEnum
