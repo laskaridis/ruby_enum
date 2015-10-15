@@ -23,55 +23,161 @@ Or install it yourself as:
 
 ## Usage
 
-To create an enumeration type simply include the `RubyEnum` module in your
-enumeration class and provide the enumeration's values as follows:
+To create an enumeration type include the `RubyEnum` module in your enumeration
+class and provide the enumeration's values as follows:
+
 ```ruby
-class Coordinates
+class Coordinate
   include RubyEnum
   
   enum :north
   enum :south
   enum :west
   enum :east
+end
 ```
+Note that you can't define the same enumeration instance twice. An error will
+be raised in this case, for example:
 
-Including `RubyEnum` in any class will make it a singleton. This means that you
-can't create new instances of your class using `new`, `allocate`, `clone` or
-`dup`. You can access an enumeration's value instances in three different ways:
-
-1. Using a class method that matches the provided name of the enumeration
-value:
 ```ruby
-north = Coordinates.north
+class InvalidEnumeration
+  include RubyEnum
+
+  enum :value
+  enum :value
+end
 ```
 
-2. Using a constant:
+Including `RubyEnum` in any class will make it a singleton. You will not be able
+to create new instances of your class using `new`, `allocate`, `clone` or
+`dup`. You can access an enumeration's values in three different ways:
+
+Using a class method that matches the enumeration instance name:
+
 ```ruby
-north = Coordinates::NORTH
+north = Coordinate.north
 ```
 
-3. Treating your enumeration class as a dictionary:
+Using a constant that matches the enumeration instance name:
+
 ```ruby
-north = Coordinates[:north]
+north = Coordinate::NORTH
 ```
 
-All three approaches are equivalent and subject to personal style.
+Treating your enumeration class as a dictionary:
 
-To retrieve all values of an enumeration, simply invoke `all` method on your
+```ruby
+north = Coordinate[:north]
+```
+Note that his method returns `nil` if no enumeration instance is found by the
+specified name.
+
+To retrieve all enumeration instances simply use method `all` on your
 enumeration class:
+
 ```ruby
-coordinates = Coordinates.all
+coordinates = Coordinate.all
 ```
 
-## Development
+### Specifying associated values
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
+Each enumeration instance has an implicit name and associated value attributes
+accessible through the `name` and `value` methods. If no associated value is
+specified for an enumeration instance in the definition of the enumeration 
+class, it will be implicitly set to its name:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+north = Coordinate.north
+north.name
+# => :north
+north.value
+# => "north"
+```
+
+You may provide a custom associated value to each enumeration instance following
+its name in the declaration:
+
+```ruby
+class Planet
+  include RubyEnum
+
+  enum :mercury, 1
+  enum :venus, 2
+  enum :earth, 3
+end
+
+mercury = Planet.mercury
+mercury.name
+# => :mercury
+mercury.value
+# => 1
+```
+
+Associated values should be unique in the context of an enumeration class. An 
+error will be thrown in those cases, for example:
+
+```ruby
+class InvalidEnumeration
+  include RubyEnum
+
+  enum :a, 1
+  enum :b, 1
+end
+```
+
+### Finding enumerations by associated value
+
+You can find an enumeration value by its associated value:
+
+```ruby
+mercury = Planet.find_by_value 1
+```
+
+If no enumeration instance is found with the specified associated value this
+method returns `nil`. Using the `find_by_value!` version, an error is raised in
+this case.
+
+### Testing enumeration classes
+
+To test enumeration classes you can use the custom `be_an_enumeration` and
+`define_enumeration_value` matchers.
+
+```ruby
+require 'ruby_enum/rspec'
+
+describe Coordinate do
+
+  it { should be_an_enumeration }
+  it { should define_enumeration_value :north }
+  it { should define_enumeration_value :north, 'north' }
+end
+```
+
+### Adding custom methods
+
+Nothing stops you from adding your own methods to an enumeration.
+
+```ruby
+class Planet
+  include RubyEnum
+
+  enum :mercury, 1
+  enum :venus, 2
+  enum :earth, 3
+
+  def description
+    "#{name.to_s.capitalize} is the #{value.ordinalize} rock from the sun"
+  end
+end
+
+mercury = Planet::EARTH
+mercury.description
+# => "Earth is the 3rd rock from the sun"
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/ruby_enum/fork )
+1. Fork it ( https://github.com/laskaridis/ruby_enum/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
