@@ -40,8 +40,6 @@ module RubyEnum
 
     # defines enumeration values
     def enum(name, value = nil)
-      @_instances ||= {}
-
       normalized_name = normalize name
       if self[normalized_name]
         raise ArgumentError, "An enumeration value for #{normalized_name} has " \
@@ -49,19 +47,23 @@ module RubyEnum
       else
         value = normalized_name.to_s unless value
         define_instance_accessor_for normalized_name
-        @_instances[normalized_name] = new value
+        enumeration_values[normalized_name] = new value
       end
     end
 
     def [](name)
-      @_instances[normalize(name)]
+      enumeration_values[normalize(name)]
     end
 
     def all
-      @_instances.map { |_, instance| instance }
+      enumeration_values.map { |_, instance| instance }
     end
 
     private
+
+    def enumeration_values
+      @_instances ||= {}
+    end
 
     def define_instance_accessor_for(name)
       self.class.instance_eval do
