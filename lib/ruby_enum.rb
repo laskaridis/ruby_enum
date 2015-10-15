@@ -62,38 +62,41 @@ module RubyEnum
 
     # defines enumeration values
     def enum(name, value = nil)
-      normalized_name = normalize name
+      normalized_name = _normalize name
       if self[normalized_name]
         raise ArgumentError, "An enumeration value for #{normalized_name} has " \
           "already been defined in #{self.name}."
       else
         value = normalized_name.to_s unless value
-        define_instance_accessor_for normalized_name
-        enumeration_values[normalized_name] = new(normalized_name, value)
+        _define_instance_accessor_for normalized_name
+        _enumeration_values[normalized_name] = new(normalized_name, value)
       end
     end
 
     def [](name)
-      enumeration_values[normalize(name)]
+      _enumeration_values[_normalize(name)]
     end
 
     def all
-      enumeration_values.map { |_, instance| instance }
+      _enumeration_values.map { |_, instance| instance }
     end
 
     private
 
-    def enumeration_values
+    def _enumeration_values
       @_instances ||= {}
     end
 
-    def define_instance_accessor_for(name)
-      self.class.instance_eval do
+    def _define_instance_accessor_for(name)
+      # check {http://ryanangilly.com/post/234897271/dynamically-adding-class-methods-in-ruby}
+      class << self
+        self
+      end.instance_eval do
         define_method(name) { return self[name] }
       end
     end
 
-    def normalize(name)
+    def _normalize(name)
       name.to_s.downcase.to_sym
     end
   end
