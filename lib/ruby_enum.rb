@@ -11,9 +11,30 @@ module RubyEnum
 
   module InstanceMethods
 
+    def method_missing(method, *args, &block)
+      if method.to_s =~ /^(.*)\?/
+        enum_names = self.class.all.map(&:name)
+        expected_name = $1.to_sym
+        if enum_names.include?(expected_name)
+          return name == expected_name
+        end
+      end
+    end
+
+    def respond_to?(method)
+      if method.to_s =~ /^(.*)\?/
+        enum_names = self.class.all.map(&:name)
+        return enum_names.include? $1.to_sym
+      end
+    end
+
     # the value associated with the enumeration instance
     def value
       @_value
+    end
+
+    def name
+      @_name
     end
 
     def clone
@@ -26,7 +47,8 @@ module RubyEnum
 
     private
 
-    def initialize(value)
+    def initialize(name, value)
+      @_name = name
       @_value = value
     end
   end
@@ -47,7 +69,7 @@ module RubyEnum
       else
         value = normalized_name.to_s unless value
         define_instance_accessor_for normalized_name
-        enumeration_values[normalized_name] = new value
+        enumeration_values[normalized_name] = new(normalized_name, value)
       end
     end
 

@@ -10,6 +10,75 @@ describe RubyEnum do
     enum :west
   end
 
+
+  describe 'Coordinate.north' do
+    subject { Coordinate.north }
+
+    it { should be_a Coordinate }
+    it { should respond_to :north? }
+    it { should be_north }
+    it { should_not be_south }
+    it { should_not be_east }
+    it { should_not be_west }
+    it 'should have value `north`' do
+      expect(subject.value).to eq 'north'
+    end
+    it 'should have name :north' do
+      expect(subject.name).to eq :north
+    end
+  end
+
+  describe 'Coordinate.south' do
+    subject { Coordinate.south }
+
+    it { should be_a Coordinate }
+    it { should respond_to :south? }
+    it { should be_south }
+    it { should_not be_north }
+    it { should_not be_east }
+    it { should_not be_west }
+    it 'should have value `south`' do
+      expect(subject.value).to eq 'south'
+    end
+    it 'should have name :south' do
+      expect(subject.name).to eq :south
+    end
+  end
+
+  describe 'Coordinate.east' do
+    subject { Coordinate.east }
+
+    it { should be_a Coordinate }
+    it { should respond_to :east? }
+    it { should be_east }
+    it { should_not be_north }
+    it { should_not be_south }
+    it { should_not be_west }
+    it 'should have value `east`' do
+      expect(subject.value).to eq 'east'
+    end
+    it 'should have name :east' do
+      expect(subject.name).to eq :east
+    end
+  end
+
+  describe 'Coordinate.west' do
+    subject { Coordinate.west }
+
+    it { should be_a Coordinate }
+    it { should respond_to :west? }
+    it { should be_west }
+    it { should_not be_north }
+    it { should_not be_south }
+    it { should_not be_east }
+    it 'should have value `west`' do
+      expect(subject.value).to eq 'west'
+    end
+    it 'should have name :west' do
+      expect(subject.name).to eq :west
+    end
+  end
+
   it 'should make #new private' do
     expect { Coordinate.new }.to raise_error NoMethodError
   end
@@ -26,14 +95,14 @@ describe RubyEnum do
     expect { Coordinate.north.dup }.to raise_error TypeError
   end
 
-  it 'should define enumeration instances' do
-    expect(Coordinate.north).to be_a Coordinate
-    expect(Coordinate.south).to be_a Coordinate
-    expect(Coordinate.east).to be_a Coordinate
-    expect(Coordinate.west).to be_a Coordinate
+  it 'should define type checking methods' do
+    expect(Coordinate.north).to be_north
+    expect(Coordinate.south).to be_south
+    expect(Coordinate.east).to be_east
+    expect(Coordinate.west).to be_west
   end
 
-  it 'should assign default values to each enumeration instance' do
+  it 'should assign a default associated value to each enumeration instance' do
     expect(Coordinate.north.value).to eq 'north'
     expect(Coordinate.south.value).to eq 'south'
     expect(Coordinate.east.value).to eq 'east'
