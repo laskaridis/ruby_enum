@@ -1,9 +1,9 @@
+*.gem
 .bundle/
-coverage/
 pkg/
 .idea
-*.gem
 .yardoc
 *~
+*.swp
 tags
 gems.tags
