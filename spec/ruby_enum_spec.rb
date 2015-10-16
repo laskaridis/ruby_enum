@@ -10,6 +10,15 @@ describe RubyEnum do
     enum :west
   end
 
+  context 'dynamic enumeration accessor methods' do
+    subject { Coordinate }
+
+    it { should respond_to :north }
+    it { should respond_to :south }
+    it { should respond_to :east }
+    it { should respond_to :west }
+  end
+
   describe 'Coordinate.north' do
     subject { Coordinate.north }
 
