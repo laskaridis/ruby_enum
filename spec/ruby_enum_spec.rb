@@ -94,13 +94,6 @@ describe RubyEnum do
     expect { Coordinate.north.dup }.to raise_error TypeError
   end
 
-  it 'should define type checking methods' do
-    expect(Coordinate.north).to be_north
-    expect(Coordinate.south).to be_south
-    expect(Coordinate.east).to be_east
-    expect(Coordinate.west).to be_west
-  end
-
   it 'should assign a default associated value to each enumeration instance' do
     expect(Coordinate.north.value).to eq 'north'
     expect(Coordinate.south.value).to eq 'south'
