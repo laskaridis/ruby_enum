@@ -28,11 +28,12 @@ module RubyEnum
       end
     end
 
-    # the value associated with the enumeration instance
+    # @return [String] the associated value of the enumeration instance
     def value
       @_value
     end
 
+    # @return [Symbol] the name of the enumeration instance
     def name
       @_name
     end
@@ -60,27 +61,36 @@ module RubyEnum
       self[name] || super
     end
 
-    # defines enumeration values
     def enum(name, value = nil)
+      raise ArgumentError, 'name is required for an enumeration' if name.nil?
+
       normalized_name = _normalize name
       if self[normalized_name]
-        raise ArgumentError, "An enumeration value for #{normalized_name} has " \
+        raise ArgumentError, "an enumeration value for #{normalized_name} has " \
           "already been defined in #{self.name}."
       else
         value = normalized_name.to_s unless value
+        if find_by_value value
+          raise ArgumentError, "duplicate associated value `#{value}` for enumeration" \
+            "with name `#{name}`"
+        end
         _define_instance_accessor_for normalized_name
         _enumeration_values[normalized_name] = new(normalized_name, value)
       end
     end
 
+    # @return the enumeration instance with the specified name or nil if none exists
     def [](name)
       _enumeration_values[_normalize(name)]
     end
 
+    # @return [Array] all enumeration instances defined in this enumeration class
     def all
       _enumeration_values.map { |_, instance| instance }
     end
 
+    # @return the enumeration instance with the specified associated value
+    # @raise [ArgumentError] when no enumeration instance with the associated value is found
     def find_by_value!(value)
       result = find_by_value(value) 
       unless result
@@ -90,6 +100,7 @@ module RubyEnum
       result
     end
 
+    # @return the enumeration instance with the specifed associated value
     def find_by_value(value)
       all.find { |instance| instance.value == value }
     end
@@ -102,10 +113,14 @@ module RubyEnum
 
     def _define_instance_accessor_for(name)
       # check {http://ryanangilly.com/post/234897271/dynamically-adding-class-methods-in-ruby}
+      _metaclass.instance_eval do
+        define_method(name) { return self[name] }
+      end
+    end
+
+    def _metaclass
       class << self
         self
-      end.instance_eval do
-        define_method(name) { return self[name] }
       end
     end
 
