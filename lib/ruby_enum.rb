@@ -3,10 +3,11 @@ require "ruby_enum/version"
 module RubyEnum
 
   def self.included(base)
+    p base
     # enmeration instances are singleton values
     base.private_class_method(:new, :allocate)
-    base.extend(ClassMethods)
-    base.include(InstanceMethods)
+    base.send :extend, ClassMethods
+    base.send :include, InstanceMethods
   end
 
   module InstanceMethods
