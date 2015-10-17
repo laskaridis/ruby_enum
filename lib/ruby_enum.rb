@@ -3,7 +3,6 @@ require "ruby_enum/version"
 module RubyEnum
 
   def self.included(base)
-    p base
     # enmeration instances are singleton values
     base.private_class_method(:new, :allocate)
     base.send :extend, ClassMethods
@@ -129,4 +128,8 @@ module RubyEnum
       name.to_s.downcase.to_sym
     end
   end
+end
+
+if defined? Rails
+  require 'ruby_enum/active_record'
 end
