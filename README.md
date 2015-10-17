@@ -1,8 +1,6 @@
 [![Gem
-Version](https://badge.fury.io/rb/ruby_enum.svg)](https://badge.fury.io/rb/ruby_enum)
-
-[![Build
-Status](https://travis-ci.org/laskaridis/ruby_enum.svg?branch=master)](https://travis-ci.org/laskaridis/ruby_enum)
+Version](https://badge.fury.io/rb/ruby_enum.svg)](https://badge.fury.io/rb/ruby_enum) [![Build
+Status](https://travis-ci.org/laskaridis/ruby_enum.svg?branch=master)](https://travis-ci.org/laskaridis/ruby_enum) [![Code Climate](https://codeclimate.com/github/laskaridis/ruby_enum/badges/gpa.svg)](https://codeclimate.com/github/laskaridis/ruby_enum)
 
 # RubyEnum
 
