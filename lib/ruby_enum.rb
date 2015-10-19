@@ -132,4 +132,5 @@ end
 
 if defined? Rails
   require 'ruby_enum/active_record'
+  require 'ruby_enum/railtie'
 end

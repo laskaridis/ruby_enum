@@ -55,5 +55,3 @@ module RubyEnum
     end
   end
 end
-
-::ActiveRecord::Base.send :include, RubyEnum::ActiveRecord::AttrEnum
