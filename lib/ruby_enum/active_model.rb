@@ -6,15 +6,17 @@ module RubyEnum
       extend ActiveSupport::Concern
 
       def assign_attributes(new_attributes, optsions = {})
-        enumeration_attrs = self.class.attr_enums
+        if new_attributes
+          enumeration_attrs = self.class.attr_enums
 
-        new_attributes.each do |k, v|
-          enum_attr = enumeration_attrs[k]
+          new_attributes.each do |k, v|
+            enum_attr = enumeration_attrs[k]
 
-          if enum_attr.present? && _is_not_enum?(v)
-            enum_class_name = enum_attr[:class_name]
-            enum_class = Object.const_get enum_class_name
-            new_attributes[k] = enum_class.find_by_value(v)
+            if enum_attr.present? && _is_not_enum?(v)
+              enum_class_name = enum_attr[:class_name]
+              enum_class = Object.const_get enum_class_name
+              new_attributes[k] = enum_class.find_by_value(v)
+            end
           end
         end
 
