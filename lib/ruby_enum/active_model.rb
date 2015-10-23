@@ -10,7 +10,7 @@ module RubyEnum
           enumeration_attrs = self.class.attr_enums
 
           new_attributes.each do |k, v|
-            enum_attr = enumeration_attrs[k]
+            enum_attr = enumeration_attrs[k.to_sym]
 
             if enum_attr.present? && _is_not_enum?(v)
               enum_class_name = enum_attr[:class_name]
