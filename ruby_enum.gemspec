@@ -5,7 +5,7 @@ require 'ruby_enum/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby_enum"
-  spec.version       = "0.5.0.beta5"
+  spec.version       = "0.5.0.beta6"
   spec.authors       = ["Lefteris Laskaridis"]
   spec.email         = ["l.laskaridis@pamediakopes.gr"]
 
