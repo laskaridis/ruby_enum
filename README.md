@@ -37,21 +37,14 @@ class Coordinate
   enum :east
 end
 ```
-Note that you can't define the same enumeration instance twice. An error will
-be raised in this case, for example:
+For each value an new sigleton instance of the class will be created. If
+you define the same enumeration value twice, an error will be raised.
 
-```ruby
-class InvalidEnumeration
-  include RubyEnum
+Including `RubyEnum` in any class will make it a singleton. You will not 
+be able  to create new instances of your class using `new`, `allocate`, 
+`clone` or `dup`.
 
-  enum :value
-  enum :value
-end
-```
-
-Including `RubyEnum` in any class will make it a singleton. You will not be able
-to create new instances of your class using `new`, `allocate`, `clone` or
-`dup`. You can access an enumeration's values in three different ways:
+You can access an enumeration's values in three different ways:
 
 Using a class method that matches the enumeration instance name:
 
@@ -70,8 +63,8 @@ Treating your enumeration class as a dictionary:
 ```ruby
 north = Coordinate[:north]
 ```
-Note that his method returns `nil` if no enumeration instance is found by the
-specified name.
+Note that his method returns `nil` if no enumeration instance is 
+found by the specified name.
 
 To retrieve all enumeration instances simply use method `all` on your
 enumeration class:
@@ -82,10 +75,11 @@ coordinates = Coordinate.all
 
 ### Specifying associated values
 
-Each enumeration instance has an implicit name and associated value attributes
-accessible through the `name` and `value` methods. If no associated value is
-specified for an enumeration instance in the definition of the enumeration 
-class, it will be implicitly set to its name:
+Each enumeration instance has an implicit name and associated value
+attributes accessible through the `name` and `value` methods. If no
+associated value is specified for an enumeration instance in the 
+definition of the enumeration class, it will be implicitly set to its 
+name:
 
 ```ruby
 north = Coordinate.north
