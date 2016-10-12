@@ -11,7 +11,8 @@ A simple enumeration type for ruby.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ruby_enum'
+gem 'ruby_enum', "~> 0.4" # for Rails 3
+gem 'ruby_enum', "~> 1.0" # for Rails 4
 ```
 
 And then execute:
