@@ -5,7 +5,7 @@ module RubyEnum
     module AttrEnum
       extend ActiveSupport::Concern
 
-      def assign_attributes(new_attributes, optsions = {})
+      def assign_attributes(new_attributes)
         if new_attributes
           enumeration_attrs = self.class.attr_enums
 

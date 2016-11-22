@@ -19,12 +19,16 @@ module RubyEnum
           return name == expected_name
         end
       end
+
+      super
     end
 
     def respond_to?(method)
       if method.to_s =~ /^(.*)\?/
         enum_names = self.class.all.map(&:name)
         return enum_names.include? $1.to_sym
+      else
+        super
       end
     end
 
