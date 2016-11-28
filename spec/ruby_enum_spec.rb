@@ -225,4 +225,15 @@ describe RubyEnum do
       end
     end
   end
+  
+  # Pull#4.
+  context 'Constant hijacking' do
+    it 'should not hijack RubyEnum constants' do
+      expect(Coordinate::NORTH.value).to eq 'north'
+      NORTH='HIJACKED'
+      expect(Coordinate::NORTH).to_not eq 'HIJACKED'
+      expect(Coordinate::NORTH).to be_a RubyEnum
+      expect(Coordinate::NORTH.value).to eq 'north'
+    end
+  end
 end

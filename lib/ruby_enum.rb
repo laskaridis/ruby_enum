@@ -19,6 +19,8 @@ module RubyEnum
           return name == expected_name
         end
       end
+
+      super
     end
 
     def respond_to?(method)
@@ -26,9 +28,11 @@ module RubyEnum
         enum_names = self.class.all.map(&:name)
         return enum_names.include? $1.to_sym
       end
+      super
     end
 
     # @return [String] the associated value of the enumeration instance
+    #
     def value
       @_value
     end
@@ -55,12 +59,6 @@ module RubyEnum
   end
 
   module ClassMethods
-
-    # enable retrieving enumeration values as constants
-    def const_missing(name)
-      self[name] || super
-    end
-
     def enum(name, value = nil)
       raise ArgumentError, 'name is required for an enumeration' if name.nil?
 
@@ -76,6 +74,8 @@ module RubyEnum
         end
         _define_instance_accessor_for normalized_name
         _enumeration_values[normalized_name] = new(normalized_name, value)
+
+        const_set normalized_name.to_s.upcase, _enumeration_values[normalized_name]
       end
     end
 
