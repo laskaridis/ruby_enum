@@ -45,9 +45,12 @@ module RubyEnum
 
           def _define_attr_setter_for(name)
             define_method "#{name}=" do |new_value|
-              if new_value.present?
+              if new_value.is_a?(RubyEnum)
                 super(new_value.value)
+              else
+                super(new_value)
               end
+
             end
           end
         end
