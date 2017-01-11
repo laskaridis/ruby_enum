@@ -20,6 +20,7 @@ module RubyEnum
           end
         end
 
+        p new_attributes
         super
       end
 
