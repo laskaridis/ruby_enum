@@ -45,9 +45,14 @@ module RubyEnum
 
           def _define_attr_setter_for(name)
             define_method "#{name}=" do |new_value|
-              if new_value.present?
-                super(new_value.value)
+              if new_value.present? && !new_value.is_a?(RubyEnum)
+                enum_class_name = self.class.attr_enums[name][:class_name]
+                raise "You are trying to assign a `#{new_value.class.name}` value " \
+                  "to enumeration attribute `#{name}` which is not supported. " \
+                  "You must use `#{enum_class_name}` values instead."
               end
+
+              super(new_value.try(:value))
             end
           end
         end
